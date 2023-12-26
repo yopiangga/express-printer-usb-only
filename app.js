@@ -7,7 +7,8 @@ const app = express();
 app.use(cors());
 
 app.get("/", async (req, res) => {
-  const printerName = "HP Ink Tank 310 series";
+  // const printerName = "HP Ink Tank 310 series";
+  const printerName = "POS-80C";
   const printers = await ptp.getPrinters();
   for (const p of printers) {
     console.log(`PRINTER Name: ${p.name} compare: ${p.name === printerName}`);
@@ -26,6 +27,11 @@ app.get("/", async (req, res) => {
   res.send("Hello World!");
 });
 
-app.listen(3001, "0.0.0.0", () =>
+app.get("/printers", async (req, res) => {
+  const printers = await ptp.getPrinters();
+  res.send(printers);
+});
+
+app.listen(3010, "0.0.0.0", () =>
   console.log(`Example app listening on port 3000!`)
 );
